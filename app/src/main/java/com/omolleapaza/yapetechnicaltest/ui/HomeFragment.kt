@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.omolleapaza.yapetechnicaltest.R
 import com.omolleapaza.yapetechnicaltest.RecipeEntity
@@ -18,6 +20,7 @@ import com.omolleapaza.yapetechnicaltest.data.RecipeRepository
 import com.omolleapaza.yapetechnicaltest.data.remote.RecipeRemoteDataSource
 import com.omolleapaza.yapetechnicaltest.data.remote.RemoteApi
 import com.omolleapaza.yapetechnicaltest.extensions.createFactory
+import com.omolleapaza.yapetechnicaltest.model.RecipeModel
 import com.omolleapaza.yapetechnicaltest.ui.adapter.RecipeAdapter
 import com.omolleapaza.yapetechnicaltest.viewmodel.MainUIState
 import com.omolleapaza.yapetechnicaltest.viewmodel.MainViewModel
@@ -49,9 +52,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvRecipes)
-        recyclerView?.adapter = RecipeAdapter(emptyList())
-
+        recyclerView?.adapter = RecipeAdapter(emptyList(), ::handleListenerAdapter)
         observerUiState()
+
     }
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
@@ -72,6 +75,12 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun handleListenerAdapter(data: RecipeModel){
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data)
+        viewModel.setupData(data)
+        view?.findNavController()?.navigate(action)
+    }
+
     private fun showError(throwable: Throwable?) {
         Log.v("ERROR", "throwable $throwable")
     }
@@ -79,6 +88,7 @@ class HomeFragment : Fragment() {
     private fun render(recipes: List<RecipeEntity>) {
         (recyclerView?.adapter as? RecipeAdapter)?.update(recipes)
     }
+
 
 
 

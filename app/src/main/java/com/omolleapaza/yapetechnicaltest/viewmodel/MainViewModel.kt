@@ -1,9 +1,11 @@
 package com.omolleapaza.yapetechnicaltest.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omolleapaza.yapetechnicaltest.data.RecipeRepository
+import com.omolleapaza.yapetechnicaltest.model.RecipeModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -12,6 +14,12 @@ class MainViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
 
     private val _uiState = MutableStateFlow<MainUIState>(MainUIState.Success(emptyList()))
     val uiState: StateFlow<MainUIState> = _uiState
+
+    val title: MutableLiveData<String> = MutableLiveData()
+    val description: MutableLiveData<String> = MutableLiveData()
+    val author: MutableLiveData<String> = MutableLiveData()
+    val locationName: MutableLiveData<String> = MutableLiveData()
+    val score: MutableLiveData<String> = MutableLiveData()
 
     private fun getRecipes() {
         viewModelScope.launch {
@@ -22,6 +30,15 @@ class MainViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
                 _uiState.value = MainUIState.Error(result.exceptionOrNull())
             }
         }
+    }
+    fun setupData(data: RecipeModel) {
+        Log.i("Data",data.toString())
+        title.value = data.title
+        description.value = data.description
+        author.value = data.author
+        locationName.value = data.locationName
+        score.value = data.score.toString()
+
     }
 
     init {
