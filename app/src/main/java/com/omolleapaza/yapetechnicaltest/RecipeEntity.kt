@@ -10,5 +10,6 @@ data class RecipeEntity(
     val author: String,
     val latitude: Double,
     val longitude: Double,
-    val locationName: String
+    val locationName: String,
+    val score: Double
 )

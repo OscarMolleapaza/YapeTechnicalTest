@@ -30,7 +30,8 @@ class RecipeRemoteDataSource(
                             author = it.author ?: "",
                             latitude = it.latitude ?: 0.0,
                             longitude = it.longitude ?: 0.0,
-                            locationName = it.locationName ?: ""
+                            locationName = it.locationName ?: "",
+                            score = it.score?:0.0
 
                         )
                     } ?: emptyList()

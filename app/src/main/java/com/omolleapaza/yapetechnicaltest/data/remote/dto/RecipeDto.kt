@@ -11,5 +11,6 @@ data class RecipeDto(
     @SerialName("Author") val author: String?,
     @SerialName("Latitude") val latitude: Double?,
     @SerialName("Longitude") val longitude: Double?,
-    @SerialName("LocationName") val locationName: String?
+    @SerialName("LocationName") val locationName: String?,
+    @SerialName("Score") val score: Double?
 )
