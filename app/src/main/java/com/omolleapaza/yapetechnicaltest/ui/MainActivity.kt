@@ -1,7 +1,8 @@
-package com.omolleapaza.yapetechnicaltest
+package com.omolleapaza.yapetechnicaltest.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.omolleapaza.yapetechnicaltest.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
