@@ -22,10 +22,17 @@
         <argument
             android:name="RecipeUI"
             app:argType="com.omolleapaza.yapetechnicaltest.model.RecipeModel" />
+        <action
+            android:id="@+id/action_detailFragment_to_ubicationFragment"
+            app:destination="@id/ubicationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.omolleapaza.yapetechnicaltest.ui.MapFragment"
+        android:id="@+id/ubicationFragment"
+        android:name="com.omolleapaza.yapetechnicaltest.ui.UbicationFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="RecipeUI"
+            app:argType="com.omolleapaza.yapetechnicaltest.model.RecipeModel" />
+    </fragment>
 </navigation>

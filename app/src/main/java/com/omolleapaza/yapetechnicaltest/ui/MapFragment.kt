@@ -1,18 +1,22 @@
 package com.omolleapaza.yapetechnicaltest.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.omolleapaza.yapetechnicaltest.R
+import com.google.android.gms.maps.SupportMapFragment
 
 
-class MapFragment : Fragment() {
+class MapFragment : SupportMapFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        layoutInflater: LayoutInflater,
+        viewGroup: ViewGroup?,
+        savedInstance: Bundle?
+    ): View {
 
+        return super.onCreateView(layoutInflater, viewGroup, savedInstance)
     }
+
 
 }

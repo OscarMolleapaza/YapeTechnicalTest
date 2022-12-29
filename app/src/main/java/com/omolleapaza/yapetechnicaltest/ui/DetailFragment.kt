@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omolleapaza.yapetechnicaltest.data.RecipeRepository
 import com.omolleapaza.yapetechnicaltest.data.remote.RecipeRemoteDataSource
@@ -55,13 +56,12 @@ class DetailFragment : Fragment() {
         _binding.executePendingBindings()
         Log.i("Data",args.recipeUI.toString())
 
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+        _binding.button.setOnClickListener {
+            val action = DetailFragmentDirections.actionDetailFragmentToUbicationFragment(args.recipeUI)
+            view?.findNavController()?.navigate(action)
+        }
 
     }
+
 
 }

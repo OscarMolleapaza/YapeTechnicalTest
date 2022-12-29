@@ -3,7 +3,7 @@ package com.omolleapaza.yapetechnicaltest.data.remote
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-private const val URL = "http://demo8484582.mockable.io"
+const val URL = "http://demo8484582.mockable.io"
 
 class RemoteApi {
 

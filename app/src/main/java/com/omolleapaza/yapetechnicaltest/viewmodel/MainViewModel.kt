@@ -1,11 +1,15 @@
 package com.omolleapaza.yapetechnicaltest.viewmodel
 
+import android.location.Location
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import com.omolleapaza.yapetechnicaltest.data.RecipeRepository
 import com.omolleapaza.yapetechnicaltest.model.RecipeModel
+import com.omolleapaza.yapetechnicaltest.ui.extensions.convertToLocation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,7 +25,9 @@ class MainViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
     val locationName: MutableLiveData<String> = MutableLiveData()
     val score: MutableLiveData<String> = MutableLiveData()
 
-    private fun getRecipes() {
+
+
+    fun getRecipes() {
         viewModelScope.launch {
             val result = recipeRepository.getRecipes()
             if (result.isSuccess) {
@@ -32,13 +38,11 @@ class MainViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
         }
     }
     fun setupData(data: RecipeModel) {
-        Log.i("Data",data.toString())
         title.value = data.title
         description.value = data.description
         author.value = data.author
         locationName.value = data.locationName
         score.value = data.score.toString()
-
     }
 
     init {

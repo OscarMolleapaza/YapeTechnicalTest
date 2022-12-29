@@ -14,12 +14,12 @@ class RecipeRemoteDataSource(
     private val json: Json
 ) : RecipeRepository {
 
+
     override suspend fun getRecipes(): Result<List<RecipeEntity>> =
         withContext(Dispatchers.IO) {
             try {
                 val response = remoteApi.callService(remoteApi.buildGetRequest("/recipe"))
 
-                Log.i("Entrando",response.toString())
                 if (response.isSuccessful) {
                     val body = response.body?.string() ?: ""
                     val recipeResponse =
