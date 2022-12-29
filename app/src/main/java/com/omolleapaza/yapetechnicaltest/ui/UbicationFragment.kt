@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -66,7 +67,8 @@ class UbicationFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         _binding.lifecycleOwner = this.viewLifecycleOwner
-        //viewModel.setupData(args.recipeUI)
+        viewModel.setupData(args.recipeUI)
+        Glide.with(view).load(args.recipeUI.imageUrl).into(_binding.imgRecipeMap)
         _binding.executePendingBindings()
 
         handleFragmentOfMaps()
@@ -85,7 +87,7 @@ class UbicationFragment : Fragment(), OnMapReadyCallback {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings.isMapToolbarEnabled = false
         args.recipeUI.let {
-            val latLng = LatLng(-15.837061, -70.020526)
+            val latLng = LatLng(it.latitude, it.longitude)
 
             handleMoveCamera(latLng, 12f)
 
@@ -96,7 +98,7 @@ class UbicationFragment : Fragment(), OnMapReadyCallback {
             })
 
             map.setOnMarkerClickListener {
-                Toast.makeText(requireContext(), latLng.toString(),Toast.LENGTH_LONG).show()
+                _binding.cardView.visibility = View.VISIBLE
                 true
 
             }
