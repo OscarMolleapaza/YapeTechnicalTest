@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.omolleapaza.yapetechnicaltest.data.RecipeRepository
 import com.omolleapaza.yapetechnicaltest.data.remote.RecipeRemoteDataSource
 import com.omolleapaza.yapetechnicaltest.data.remote.RemoteApi
@@ -53,12 +54,12 @@ class DetailFragment : Fragment() {
 
         _binding.lifecycleOwner = this.viewLifecycleOwner
         viewModel.setupData(args.recipeUI)
+        Glide.with(view).load(args.recipeUI.imageUrl).into(_binding.imageView)
         _binding.executePendingBindings()
-        Log.i("Data",args.recipeUI.toString())
 
         _binding.button.setOnClickListener {
             val action = DetailFragmentDirections.actionDetailFragmentToUbicationFragment(args.recipeUI)
-            view?.findNavController()?.navigate(action)
+            view.findNavController().navigate(action)
         }
 
     }

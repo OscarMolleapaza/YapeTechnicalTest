@@ -5,10 +5,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
+
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.omolleapaza.yapetechnicaltest.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Inicio"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
@@ -17,7 +19,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.omolleapaza.yapetechnicaltest.ui.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Detalle de Receta"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="RecipeUI"
@@ -29,7 +31,7 @@
     <fragment
         android:id="@+id/ubicationFragment"
         android:name="com.omolleapaza.yapetechnicaltest.ui.UbicationFragment"
-        android:label="fragment_map"
+        android:label="Ubicación"
         tools:layout="@layout/fragment_map" >
         <argument
             android:name="RecipeUI"

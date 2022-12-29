@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.omolleapaza.yapetechnicaltest.R
@@ -48,7 +49,6 @@ class UbicationFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun handleMoveCamera(value: LatLng, zoomLevel: Float) {
-        Log.i("EntrandoMoveCamera", value.toString())
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(value, zoomLevel))
     }
     override fun onCreateView(
@@ -69,14 +69,13 @@ class UbicationFragment : Fragment(), OnMapReadyCallback {
         //viewModel.setupData(args.recipeUI)
         _binding.executePendingBindings()
 
-        Log.i("DataMap", args.recipeUI.toString())
         handleFragmentOfMaps()
     }
 
 
     private fun handleFragmentOfMaps(){
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerMap) as MapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
     }

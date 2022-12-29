@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.omolleapaza.yapetechnicaltest.data.RecipeRepository
 import com.omolleapaza.yapetechnicaltest.model.RecipeModel
@@ -18,6 +19,7 @@ class MainViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
 
     private val _uiState = MutableStateFlow<MainUIState>(MainUIState.Success(emptyList()))
     val uiState: StateFlow<MainUIState> = _uiState
+
 
     val title: MutableLiveData<String> = MutableLiveData()
     val description: MutableLiveData<String> = MutableLiveData()
@@ -44,6 +46,7 @@ class MainViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
         locationName.value = data.locationName
         score.value = data.score.toString()
     }
+
 
     init {
         getRecipes()

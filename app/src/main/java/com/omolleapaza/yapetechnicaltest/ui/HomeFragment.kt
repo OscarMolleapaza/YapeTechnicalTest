@@ -3,16 +3,17 @@ package com.omolleapaza.yapetechnicaltest.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.omolleapaza.yapetechnicaltest.R
 import com.omolleapaza.yapetechnicaltest.RecipeEntity
@@ -26,10 +27,12 @@ import com.omolleapaza.yapetechnicaltest.viewmodel.MainUIState
 import com.omolleapaza.yapetechnicaltest.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import java.util.*
 
 class HomeFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
+    private var search: EditText? = null
 
     private val recipeRepository: RecipeRepository by lazy {
         RecipeRemoteDataSource(RemoteApi(), Json {
@@ -53,9 +56,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvRecipes)
         recyclerView?.adapter = RecipeAdapter(emptyList(), ::handleListenerAdapter)
+
+
         observerUiState()
 
     }
+
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     private fun observerUiState() {
@@ -75,7 +81,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun handleListenerAdapter(data: RecipeModel){
+    private fun handleListenerAdapter(data: RecipeModel) {
         val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data)
         viewModel.setupData(data)
         view?.findNavController()?.navigate(action)
@@ -87,9 +93,15 @@ class HomeFragment : Fragment() {
 
     private fun render(recipes: List<RecipeEntity>) {
         (recyclerView?.adapter as? RecipeAdapter)?.update(recipes)
+        search = view?.findViewById(R.id.tetSearch)
+        search?.addTextChangedListener {
+            val listFilter = recipes.filter { recipeEntity ->
+                recipeEntity.title.contains(it.toString())
+            }
+            (recyclerView?.adapter as? RecipeAdapter)?.update(listFilter)
+        }
+
     }
-
-
 
 
 }

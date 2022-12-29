@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.omolleapaza.yapetechnicaltest.R
 import com.omolleapaza.yapetechnicaltest.RecipeEntity
 import com.omolleapaza.yapetechnicaltest.databinding.ItemRecipeBinding
@@ -25,6 +26,7 @@ class RecipeAdapter(var recipes: List<RecipeEntity>, private val listener: (Reci
                 tvTitle.text = recipeEntity.title
                 tvLocationName.text = recipeEntity.locationName
                 tvScore.text = recipeEntity.score.toString()
+                Glide.with(itemView).load(recipeEntity.imageUrl).into(imgRecipe)
             }
         }
     }
